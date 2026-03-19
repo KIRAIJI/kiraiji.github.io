@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GANAP PH — Tektoniks</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="brand__title">Tektoniks</h1>
+        <p class="brand__tagline">GANAP PH — Barangay Event Registration &amp; Community Connection</p>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#team">Team Profile</a>
+        <a href="#overview">Project Overview</a>
+        <a href="#updates">Project Updates</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Site introduction">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__pretitle">Welcome to</p>
+          <h2 class="hero__title">GANAP PH</h2>
+          <p class="hero__copy">A barangay event registration platform that helps communities stay connected, register for events, and get notified as activities happen.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#overview">View Overview</a>
+            <a class="btn btn--secondary" href="#team">Meet the Team</a>
+          </div>
+        </div>
+        <!-- <div class="hero__graphic">
+          <img src="https://via.placeholder.com/560x420.png?text=GANAP+PH+Dashboard" alt="GANAP PH dashboard mockup" />
+        </div> -->
+      </div>
+    </section>
+
+    <section id="team" class="section section--team">
+      <div class="container">
+        <h2 class="section__title">Team Profile</h2>
+        <p class="section__intro">Our group name is <strong>"Tektoniks"</strong>. Meet the members behind GANAP PH.</p>
+
+        <div class="team-grid">
+          <article class="team-card">
+            <img class="team-card__avatar" src="resources/Jansdale.jpeg" alt="Jansdale S. Yusi" />
+            <div class="team-card__body">
+              <h3 class="team-card__name">Jansdale S. Yusi</h3>
+              <p class="team-card__role">Project Manager</p>
+              <p class="team-card__bio">Jansdale keeps the team on track and guides our roadmap. They coordinate meetings, prioritize tasks, and ensure GANAP PH stays aligned with community needs.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <img class="team-card__avatar" src="resources/Yoj.jpeg" alt="Yoj T. Cuison" />
+            <div class="team-card__body">
+              <h3 class="team-card__name">Yoj T. Cuison</h3>
+              <p class="team-card__role">Backend Developer</p>
+              <p class="team-card__bio">Yoj builds and maintains the core systems, APIs, and authentication logic that power secure event registration for the community.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <img class="team-card__avatar" src="resources/Rhea.png" alt="Rhea Angeline G. Manipon" />
+            <div class="team-card__body">
+              <h3 class="team-card__name">Rhea Angeline G. Manipon</h3>
+              <p class="team-card__role">Front-end Developer</p>
+              <p class="team-card__bio">Rhea builds the user interface and experience, ensuring the site is responsive, accessible, and easy to use across devices.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <img class="team-card__avatar" src="resources/Steph.jpeg" alt="Stephanie Joy F. Revano" />
+            <div class="team-card__body">
+              <h3 class="team-card__name">Stephanie Joy F. Revano</h3>
+              <p class="team-card__role">Integration Specialist</p>
+              <p class="team-card__bio">Stephanie ensures services, APIs, and notifications work together smoothly so the system is reliable and accurate.</p>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <img class="team-card__avatar" src="resources/Kerby.jpeg" alt="John Kerby E. Sambile" />
+            <div class="team-card__body">
+              <h3 class="team-card__name">John Kerby E. Sambile</h3>
+              <p class="team-card__role">Documentation &amp; Quality Assurance</p>
+              <p class="team-card__bio">John keeps project documentation clear and ensures the platform is tested thoroughly so users have a consistent, reliable experience.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section section--overview">
+      <div class="container">
+        <h2 class="section__title">Project Overview</h2>
+        <div class="overview-grid">
+          <div class="overview-card">
+            <h3>Project title</h3>
+            <p class="overview-card__text"><strong>GANAP PH</strong></p>
+          </div>
+          <div class="overview-card">
+            <h3>Project description</h3>
+            <p class="overview-card__text">GANAP PH is a barangay event registration website that aims to connect the community by providing an easy way to sign up for local events. It solves the difficulty of joining community activities by closing the information gap and raising awareness about barangay events.</p>
+          </div>
+          <div class="overview-card">
+            <h3>Target users</h3>
+            <p class="overview-card__text">Barangay staff, community organizers, and residents who want to stay informed and register for local events.</p>
+          </div>
+        </div>
+
+        <div class="features">
+          <h3>Key features and functionalities</h3>
+          <ul class="features__list">
+            <li> Authentication with OAuth (Google / Facebook / Single Sign-On)</li>
+            <li> Barangay staff can manage (CRUD) events</li>
+            <li> Barangay staff can manage and view event responses</li>
+            <li> Users can register for available events</li>
+            <li> Validation of submitted registration data</li>
+            <li> Payments for events using third‑party APIs</li>
+            <li> Email notifications for registration and event updates</li>
+            <li> Activity tracking for users and admins</li>
+            <li> Automatic closing of events when seats are full or registration has ended</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="updates" class="section section--updates">
+      <div class="container">
+        <h2 class="section__title">Project Updates</h2>
+        <p class="section__intro">We keep this page updated with our weekly milestones and progress notes.</p>
+
+        <div class="updates-grid">
+          <article class="update-card">
+            <h3>Week 1</h3>
+            <ul>
+              <li>Set up initial project structure (HTML/CSS/JS).</li>
+              <li>Drafted project requirements and feature list.</li>
+              <li>Created team profile section with placeholder content.</li>
+            </ul>
+          </article>
+
+          <article class="update-card">
+            <h3>Week 2</h3>
+            <ul>
+              <li>Designed UI layout and navigation flow.</li>
+              <li>Started implementation of authentication and event CRUD wireframes.</li>
+              <li>Prepared placeholders for BPMN and architecture diagrams.</li>
+            </ul>
+          </article>
+
+          <article class="update-card">
+            <h3>Upcoming Milestones</h3>
+            <ul>
+              <li>Integrate OAuth login and role-based access.</li>
+              <li>Build event registration form + validation.</li>
+              <li>Connect payments and email notification APIs.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="diagram">
+          <h3>BPMN Diagram</h3>
+          <div class="diagram__placeholder">
+            <img src="resources/bpmn.jpeg" alt="BPMN Diagram" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="currentYear"></span> Tektoniks · GANAP PH</p>
+      <p class="footer-note">Work-in-progress. Stay tuned for updates.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
