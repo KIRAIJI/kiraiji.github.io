@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing &amp; Demo | GANAP PH</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="testing-demo">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand__eyebrow">Tektoniks</span>
+        <span class="brand__title">GANAP PH</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="index.html">Project Overview</a>
+        <a href="architecture-design.html">Architecture &amp; Design</a>
+        <a href="api-integration.html">API &amp; Integration</a>
+        <a href="database.html">Database</a>
+        <a href="testing-demo.html">Testing &amp; Demo</a>
+        <a href="resources.html">Resources</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-hero"><div class="container"><p class="page-kicker">Testing &amp; Demo</p><h1>Testing results and demo walkthrough</h1></div></section>
+    <section class="section">
+      <div class="container grid-2">
+        <article class="card">
+          <h2>Test Evidence</h2>
+          <p>PEST test run result showing successful endpoint validation.</p>
+          <img class="diagram-image" src="resources/images/tests/pest-test.png" alt="PEST test results screenshot" />
+        </article>
+        <article class="card">
+          <h2>Demo Video</h2>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/tUO5BAO3rOs?si=fm_y-6_SmmmLJZkI"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© <span id="currentYear"></span> Tektoniks</p></div></footer>
+  <script src="scripts.js"></script>
+</body>
+</html>

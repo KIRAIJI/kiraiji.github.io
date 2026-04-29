@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database | GANAP PH</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="database">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand__eyebrow">Tektoniks</span>
+        <span class="brand__title">GANAP PH</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="index.html">Project Overview</a>
+        <a href="architecture-design.html">Architecture &amp; Design</a>
+        <a href="api-integration.html">API &amp; Integration</a>
+        <a href="database.html">Database</a>
+        <a href="testing-demo.html">Testing &amp; Demo</a>
+        <a href="resources.html">Resources</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-hero"><div class="container"><p class="page-kicker">Database</p><h1>ERD, core entities, and table structure</h1></div></section>
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <h2>Database Overview</h2>
+          <p>
+            GANAP PH uses Supabase PostgreSQL as its cloud-hosted relational database.
+            The schema is centered on user management, event lifecycle operations, registration records, and payment tracking.
+            UUID-based keys and relational constraints are used to maintain data integrity across modules.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <article class="card">
+          <h2>Entity Relationship Diagram (ERD)</h2>
+          <img class="diagram-image" src="resources/diagrams/erd.png" alt="GANAP PH ERD diagram" />
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Core Tables</h2>
+        <div class="endpoint-groups">
+          <article class="card">
+            <h2>Table: barangays</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>id</code></td><td>UUID</td><td>PK</td><td>Unique identifier</td></tr>
+                  <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Barangay name</td></tr>
+                  <tr><td><code>city</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>City or municipality</td></tr>
+                  <tr><td><code>province</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Province name</td></tr>
+                  <tr><td><code>region</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Region name</td></tr>
+                  <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record creation time</td></tr>
+                  <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record last updated</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Table: users</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>id</code></td><td>UUID</td><td>PK</td><td>Unique identifier</td></tr>
+                  <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Full name</td></tr>
+                  <tr><td><code>email</code></td><td>VARCHAR(255)</td><td>UNIQUE, NOT NULL</td><td>Email address (login)</td></tr>
+                  <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Bcrypt hashed password</td></tr>
+                  <tr><td><code>phone</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Contact phone number</td></tr>
+                  <tr><td><code>role</code></td><td>ENUM</td><td>NOT NULL</td><td>super_admin, admin, staff, resident</td></tr>
+                  <tr><td><code>barangay_id</code></td><td>UUID</td><td>FK -> barangays</td><td>Assigned barangay (null for super_admin)</td></tr>
+                  <tr><td><code>must_change_password</code></td><td>BOOLEAN</td><td>DEFAULT false</td><td>Force password change on first login</td></tr>
+                  <tr><td><code>email_verified_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>Email verification timestamp</td></tr>
+                  <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record creation time</td></tr>
+                  <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record last updated</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Table: events</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>id</code></td><td>UUID</td><td>PK</td><td>Unique identifier</td></tr>
+                  <tr><td><code>title</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Event name</td></tr>
+                  <tr><td><code>description</code></td><td>TEXT</td><td>NULLABLE</td><td>Event details</td></tr>
+                  <tr><td><code>event_date</code></td><td>DATETIME</td><td>NOT NULL</td><td>Scheduled event date/time</td></tr>
+                  <tr><td><code>location</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Event venue</td></tr>
+                  <tr><td><code>fee</code></td><td>DECIMAL(10,2)</td><td>DEFAULT 0</td><td>Registration fee (0 = free)</td></tr>
+                  <tr><td><code>max_slots</code></td><td>INTEGER</td><td>NOT NULL</td><td>Maximum registrations allowed</td></tr>
+                  <tr><td><code>status</code></td><td>ENUM</td><td>DEFAULT draft</td><td>draft, published, cancelled</td></tr>
+                  <tr><td><code>created_by</code></td><td>UUID</td><td>FK -> users</td><td>Admin who created event</td></tr>
+                  <tr><td><code>barangay_id</code></td><td>UUID</td><td>FK -> barangays</td><td>Owning barangay</td></tr>
+                  <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record creation time</td></tr>
+                  <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record last updated</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Table: registrations</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>id</code></td><td>UUID</td><td>PK</td><td>Unique identifier</td></tr>
+                  <tr><td><code>user_id</code></td><td>UUID</td><td>FK -> users</td><td>Registering resident</td></tr>
+                  <tr><td><code>event_id</code></td><td>UUID</td><td>FK -> events</td><td>Event being registered for</td></tr>
+                  <tr><td><code>status</code></td><td>ENUM</td><td>NOT NULL</td><td>pending, confirmed, cancelled</td></tr>
+                  <tr><td><code>registered_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>When registration was made</td></tr>
+                  <tr><td><code>checked_in_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>When QR was scanned at event</td></tr>
+                  <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record creation time</td></tr>
+                  <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record last updated</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Table: payments</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td><code>id</code></td><td>UUID</td><td>PK</td><td>Unique identifier</td></tr>
+                  <tr><td><code>registration_id</code></td><td>UUID</td><td>FK</td><td>Link to the specific event registration</td></tr>
+                  <tr><td><code>stripe_payment_intent_id</code></td><td>STRING</td><td>UK, NOT NULL</td><td>Unique reference ID from the Stripe API</td></tr>
+                  <tr><td><code>amount</code></td><td>DECIMAL</td><td>NOT NULL</td><td>Total amount paid</td></tr>
+                  <tr><td><code>currency</code></td><td>STRING</td><td>NOT NULL</td><td>Currency code used</td></tr>
+                  <tr><td><code>status</code></td><td>ENUM</td><td>NOT NULL</td><td>succeeded, pending, failed, refunded</td></tr>
+                  <tr><td><code>paid_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>Timestamp when the transaction was completed</td></tr>
+                  <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record creation time</td></tr>
+                  <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>AUTO</td><td>Record last updated</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <article class="card">
+          <h2>Data Integrity Notes</h2>
+          <ul>
+            <li>UUID identifiers are used to reduce collision risk and support distributed operations.</li>
+            <li>Foreign-key relationships keep event, user, and registration records consistent.</li>
+            <li>Status fields are used for workflow transitions (e.g., pending, confirmed, cancelled).</li>
+            <li>Webhook-driven payment updates keep registration state synchronized with Stripe results.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© <span id="currentYear"></span> Tektoniks</p></div></footer>
+  <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture &amp; Design | GANAP PH</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="architecture-design">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand__eyebrow">Tektoniks</span>
+        <span class="brand__title">GANAP PH</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="index.html">Project Overview</a>
+        <a href="architecture-design.html">Architecture &amp; Design</a>
+        <a href="api-integration.html">API &amp; Integration</a>
+        <a href="database.html">Database</a>
+        <a href="testing-demo.html">Testing &amp; Demo</a>
+        <a href="resources.html">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-kicker">Architecture &amp; Design</p>
+        <h1>Complete architecture and design diagrams</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <h2>Architecture Overview</h2>
+          <p>
+            The system follows a Layered API Architecture, which separates responsibilities into three distinct layers:
+            Presentation, Application, and Data. This approach supports scalability, maintainability, and smoother integration
+            with external services.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <h2 class="section-title">System Architecture</h2>
+        <div class="card-grid diagrams-grid">
+          <article class="card">
+            <h2>Presentation Layer — Vue + Inertia (User Interface)</h2>
+            <p>
+              This layer handles user interaction and visual rendering using Vue 3 with Inertia.js for a smooth SPA-like flow.
+              It handles user inputs (registration, login, navigation), displays real-time changes like event slot updates, and
+              communicates directly with backend routes.
+            </p>
+          </article>
+          <article class="card">
+            <h2>Application Layer — Laravel API (Logic &amp; Authentication)</h2>
+            <p>
+              This is the core processing layer built on Laravel REST API. It handles business logic for events, registration,
+              and payments, enforces role-based authentication through middleware, and coordinates communication between frontend
+              and external services.
+            </p>
+          </article>
+          <article class="card">
+            <h2>Data Layer — Supabase PostgreSQL (Database)</h2>
+            <p>
+              This layer stores and manages all core entities such as users, events, registrations, and payments using a
+              cloud-hosted PostgreSQL database. It applies relational constraints and UUID-based identifiers for consistency,
+              integrity, and scalability.
+            </p>
+          </article>
+        </div>
+        <article class="card architecture-flow-card">
+          <h2>How the Layers Work Together</h2>
+          <p>
+            User Interface (Presentation) → Backend Processing (Application) → Data Storage (Data Layer)
+          </p>
+          <p>
+            This layered structure keeps the system modular, scalable, and integration-ready while aligning with the architecture
+            design defined in project documentation.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Diagrams</h2>
+        <div class="card-grid diagrams-grid">
+          <article class="card">
+            <h2>1. Context Diagram</h2>
+            <p>Shows the high-level ecosystem: core platform users (residents, barangay staff/admin, super admin) and the five external services (Stripe, Pusher, Supabase, Make.com, PSGC API).</p>
+            <img class="diagram-image" src="resources/diagrams/System-Context---Barangay-Event-Management-System.png" alt="System context diagram" />
+          </article>
+          <article class="card">
+            <h2>2. Container Diagram</h2>
+            <p>Illustrates the main runtime containers: Vue SPA frontend, Laravel backend API, and integrated cloud services for storage, payments, notifications, and geographic data.</p>
+            <img class="diagram-image" src="resources/diagrams/Container-Diagram---Barangay-Event-Management-System.png" alt="Container diagram" />
+          </article>
+          <article class="card">
+            <h2>3. Component Diagram</h2>
+            <p>Breaks down backend internals into middleware, controllers, and service layer modules that coordinate event logic, registration, payments, and integrations.</p>
+            <img class="diagram-image" src="resources/diagrams/Component-Diagram---Backend-API-(Barangay-Event-Management-System).png" alt="Component diagram" />
+          </article>
+          <article class="card">
+            <h2>4. Use Case Diagram</h2>
+            <p>Maps role-based actions across residents, staff, admin, and super admin, including event management, registration, payment, notifications, and check-in functions.</p>
+            <img class="diagram-image" src="resources/diagrams/use case diagram.png" alt="Use case diagram" />
+          </article>
+          <article class="card">
+            <h2>5. Sequence Diagrams</h2>
+            <p>Split into two flows:</p>
+            <div class="sequence-grid">
+              <figure class="diagram-figure">
+                <figcaption>Free Event Flow — request is validated, registration is stored in Supabase, slot counts update in real-time via Pusher, and Make.com sends confirmation.</figcaption>
+                <img class="diagram-image" src="resources/diagrams/FREE FLOW.png" alt="Sequence diagram for free event flow" />
+              </figure>
+              <figure class="diagram-figure">
+                <figcaption>Paid Event Flow — user pays through Stripe Checkout, Stripe webhook confirms payment in Laravel, then Supabase, Pusher, and Make.com complete fulfillment.</figcaption>
+                <img class="diagram-image" src="resources/diagrams/PAID FLOW.png" alt="Sequence diagram for paid event flow" />
+              </figure>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><p>© <span id="currentYear"></span> Tektoniks</p></div></footer>
+  <script src="scripts.js"></script>
+</body>
+</html>

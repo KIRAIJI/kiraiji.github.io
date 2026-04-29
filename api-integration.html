@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API &amp; Integration | GANAP PH</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="api-integration">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand__eyebrow">Tektoniks</span>
+        <span class="brand__title">GANAP PH</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="index.html">Project Overview</a>
+        <a href="architecture-design.html">Architecture &amp; Design</a>
+        <a href="api-integration.html">API &amp; Integration</a>
+        <a href="database.html">Database</a>
+        <a href="testing-demo.html">Testing &amp; Demo</a>
+        <a href="resources.html">Resources</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-hero"><div class="container"><p class="page-kicker">API &amp; Integration</p><h1>API overview, authentication, endpoints, and service integrations</h1></div></section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">API Overview</h2>
+        <article class="card">
+          <p>
+            The system exposes a REST API built with Laravel. All API responses use JSON format.
+            The API uses session-based authentication with role-based access control middleware.
+          </p>
+        </article>
+        <div class="card-grid api-overview-grid">
+          <article class="card"><h2>Base URL</h2><p><code>http://barangay-events.test</code></p></article>
+          <article class="card"><h2>Protocol</h2><p>HTTP/HTTPS</p></article>
+          <article class="card"><h2>Format</h2><p>JSON (<code>application/json</code>)</p></article>
+          <article class="card"><h2>Authentication</h2><p>Session-based with CSRF token + role middleware</p></article>
+          <article class="card"><h2>Stack</h2><p>Laravel 13.6 + Inertia.js (server-driven SPA)</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <h2 class="section-title">Authentication</h2>
+        <article class="card">
+          <ul>
+            <li>Session Authentication — Laravel built-in session guard for web routes</li>
+            <li>Role Middleware — Custom CheckRole middleware validates user role on each request</li>
+            <li>MustChangePassword Middleware — forces new users to set a password on first login</li>
+            <li>CSRF Protection — all state-changing requests require CSRF token</li>
+            <li>Webhook Signature — Stripe webhook requests are verified using <code>STRIPE_WEBHOOK_SECRET</code></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">API Endpoints</h2>
+        <article class="card">
+          <p>Endpoints grouped by module for easier API documentation navigation.</p>
+        </article>
+
+        <div class="endpoint-groups">
+          <article class="card">
+            <h2>Authentication Endpoints</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Access</th></tr></thead>
+                <tbody>
+                  <tr><td>POST</td><td><code>/login</code></td><td>Authenticate user</td><td>Guest</td></tr>
+                  <tr><td>POST</td><td><code>/logout</code></td><td>Log out user</td><td>Authenticated</td></tr>
+                  <tr><td>POST</td><td><code>/register</code></td><td>Register new resident</td><td>Guest</td></tr>
+                  <tr><td>POST</td><td><code>/change-password</code></td><td>Force password change</td><td>Auth + must_change</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Event Endpoints</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Access</th></tr></thead>
+                <tbody>
+                  <tr><td>GET</td><td><code>/events</code></td><td>List published events</td><td>Resident</td></tr>
+                  <tr><td>GET</td><td><code>/events/{id}</code></td><td>View event details</td><td>Resident</td></tr>
+                  <tr><td>GET</td><td><code>/admin/events</code></td><td>Manage all events</td><td>Admin</td></tr>
+                  <tr><td>POST</td><td><code>/admin/events</code></td><td>Create event (draft)</td><td>Admin</td></tr>
+                  <tr><td>PATCH</td><td><code>/admin/events/{id}</code></td><td>Update event details</td><td>Admin</td></tr>
+                  <tr><td>PATCH</td><td><code>/admin/events/{id}/status</code></td><td>Change event status</td><td>Admin</td></tr>
+                  <tr><td>DELETE</td><td><code>/admin/events/{id}</code></td><td>Delete event</td><td>Admin</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Registration &amp; Check-in Endpoints</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Access</th></tr></thead>
+                <tbody>
+                  <tr><td>GET</td><td><code>/my-registrations</code></td><td>List own registrations</td><td>Resident</td></tr>
+                  <tr><td>POST</td><td><code>/events/{id}/register</code></td><td>Register for event</td><td>Resident</td></tr>
+                  <tr><td>GET</td><td><code>/registrations/{id}/payment</code></td><td>Stripe payment page</td><td>Resident (owner)</td></tr>
+                  <tr><td>GET</td><td><code>/registrations/{id}/qr</code></td><td>View QR code</td><td>Resident (confirmed)</td></tr>
+                  <tr><td>DELETE</td><td><code>/registrations/{id}</code></td><td>Cancel registration</td><td>Resident (owner)</td></tr>
+                  <tr><td>POST</td><td><code>/staff/check-in</code></td><td>QR check-in at event</td><td>Staff/Admin</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Webhook Endpoint</h2>
+            <div class="table-wrap">
+              <table class="api-table">
+                <thead><tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Access</th></tr></thead>
+                <tbody>
+                  <tr><td>POST</td><td><code>/api/webhooks/stripe</code></td><td>Receive Stripe payment events</td><td>Stripe only</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <h2 class="section-title">Integrations</h2>
+        <div class="card-grid integration-cards">
+          <article class="card">
+            <h2>Stripe</h2>
+            <ul>
+              <li>Handles paid event registration payments</li>
+              <li>Uses webhooks to auto-confirm registrations</li>
+              <li>Webhook endpoint: <code>/api/webhooks/stripe</code></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>Pusher</h2>
+            <ul>
+              <li>Provides real-time updates in the UI</li>
+              <li>Broadcasts live slot availability changes</li>
+              <li>Pattern: Laravel Broadcasting to Vue frontend</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>Supabase</h2>
+            <ul>
+              <li>Cloud-hosted PostgreSQL database</li>
+              <li>Stores users, events, and registrations</li>
+              <li>Configured via PostgreSQL connection in Laravel</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>Make.com</h2>
+            <ul>
+              <li>Email automation workflows</li>
+              <li>Sends event confirmation/cancellation/reminder notifications</li>
+              <li>Triggered from registration and event actions</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>PSGC API</h2>
+            <ul>
+              <li>Provides official barangay/location data</li>
+              <li>Used for region → province → city → barangay selection</li>
+              <li>Public API source: <code>https://psgc.gitlab.io/api/</code></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid-2">
+        <article class="card">
+          <h2>Integration Flow</h2>
+          <p>
+            The system runs as a connected flow: users interact through the Laravel + Inertia frontend, API requests are processed in Laravel,
+            and data is stored in Supabase. Stripe handles payments and returns webhook events to Laravel, Pusher broadcasts real-time slot updates,
+            Make.com sends automated notifications, and PSGC API provides geographic reference data for barangay setup.
+          </p>
+        </article>
+        <article class="card">
+          <h2>Integration Guidelines</h2>
+          <p>Required tools/services:</p>
+          <ul>
+            <li>Laragon (Apache + PHP environment)</li>
+            <li>Node.js and npm</li>
+            <li>Stripe CLI</li>
+            <li>Laravel queue worker</li>
+          </ul>
+          <p>Commands:</p>
+          <ul>
+            <li><code>npm run dev</code></li>
+            <li><code>./stripe listen --forward-to http://barangay-events.test/api/webhooks/stripe</code></li>
+            <li><code>php artisan queue:listen</code></li>
+            <li><code>php artisan test</code></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>© <span id="currentYear"></span> Tektoniks</p></div></footer>
+  <script src="scripts.js"></script>
+</body>
+</html>
